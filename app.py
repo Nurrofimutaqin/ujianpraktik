@@ -1,5 +1,5 @@
 from pyexpat import model
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from keras.models import load_model
 from keras.preprocessing import image
 import tensorflow as tf
@@ -19,8 +19,8 @@ def predict_label(img_path):
 	i = image.load_img(img_path, target_size=(100,100))
 	i = image.img_to_array(i)/255.0
 	i = i.reshape(1, 100,100,3)
-	p = model.predict_classes(i)
-	return dic[p[0]]
+	prediction = model.predict_classes(i)
+	return dic[prediction[0]]
 
 
 # routes
@@ -28,11 +28,7 @@ def predict_label(img_path):
 def main():
 	return render_template("index.html")
 
-@app.route("/about")
-def about_page():
-	return "Please subscribe  Artificial Intelligence Hub..!!!"
-
-@app.route("/submit", methods = ['GET', 'POST'])
+@app.route("/api/deteksi", methods = ['GET','POST'])
 def get_output():
 	if request.method == 'POST':
 		img = request.files['my_image']
@@ -40,9 +36,20 @@ def get_output():
 		img_path = "static/uploads/" + img.filename	
 		img.save(img_path)
 
-		p = predict_label(img_path)
+		prediction = predict_label(img_path)
 
-	return render_template("index.html", prediction = p, img_path = img_path)
+	# return render_template("index.html", prediction = prediction, img_path = img_path)
+		return jsonify({
+					"prediksi": prediction,
+					"gambar_prediksi": img_path
+				})
+	else:
+            # Return hasil prediksi dengan format JSON
+            gambar_prediksi = '(none)'
+            return jsonify({
+                "prediksi": prediction,
+                "gambar_prediksi": img_path
+            })
 
 
 if __name__ =='__main__':

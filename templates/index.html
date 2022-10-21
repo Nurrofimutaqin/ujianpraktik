@@ -406,7 +406,7 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
 
-                        <form action="/submit" method="post" enctype="multipart/form-data">
+                        <!-- <form action="/submit" method="post" enctype="multipart/form-data">
                             <h3>Upload Gambar </h3>
                             <img src={{ url_for('static', filename='img/KP.jpg' ) }} width="300"></img>
                             <br>
@@ -414,19 +414,35 @@
                             <p><input type="file" name="my_image" id="pwd"></p>
                             </br>
                             <button type="submit" class="btn btn-primary py-1 px-3">Prediksi</button>
+                        </form> -->
+                        <form>
+                            <h3>Upload Gambar </h3>
+                            <img src={{ url_for('static', filename='img/KP.jpg' ) }} width="300"></img>
+                            <br>
+                            <p>silahkan upload sebuah gambar</p>
+                            <p><input type="file" name="my_image" id="input_gambar"></p>
+                            </br>
+                            <button type="submit" class="btn btn-primary py-1 px-3"
+                                id="prediksi_submit">Prediksi</button>
                         </form>
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
-                        <div id="" align="center">
+                        <!-- <div id="" align="center">
                             <h1>Hasil Prediksi</h1>{% if prediction %}
                             <img src="{{img_path}}" height="400px" width="400px">
                             <h2> Your Prediction : <i> {{prediction}} </i></h2>
 
-                            {% endif %}
-                            <!-- Hasil Prediksi -->
+                            {% endif %} -->
+                        <!-- Hasil Prediksi -->
+                        <!-- </div> -->
+                        <div id="hasil_prediksi">
+
                         </div>
+
+
+
                     </div>
                 </div>
             </div>
@@ -536,6 +552,9 @@
 
     <!-- Template Javascript -->
     <script src={{ url_for('static', filename="js/main.js" ) }}></script>
+    <script src={{ url_for('static', filename='/js/client_side.js' ) }}></script>
+    <script src={{ url_for('static', filename='/js/jquery_3.6.0.min.js' ) }}></script>
+    <script src={{ url_for('static', filename='/js/bootstrap_3.4.1.min.js' ) }}></script>
 </body>
 
 </html>
